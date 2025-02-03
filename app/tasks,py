@@ -1,0 +1,9 @@
+from app import create_app
+from app.models import User
+app = create_app()
+
+with app.app_context():
+    user = User(username='test', email='test@example.com')
+    user.set_password('securepassword123')
+    print(user.check_password('securepassword123'))  # Should return True
+    print(user.check_password('wrongpassword'))      # Should return False

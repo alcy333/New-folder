@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Active Listings</h1>
+    <div class="product-grid">
+        {% for product in products %}
+            <a href="{{ url_for('main.product_details', product_id=product.id) }}" class="product-card">
+                <div class="product-image">📦</div>  <!-- Placeholder icon -->
+                <h3>{{ product.name }}</h3>
+                <p class="price">${{ "%.2f"|format(product.current_price) }}</p>
+                <p class="time-left">Ends in: {{ product.end_time|time_remaining }}</p>
+            </a>
+        {% else %}
+            <div class="empty-state">
+                <p>No active listings available</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

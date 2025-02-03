@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="product-container">
+    <div class="product-header">
+        <h1>{{ product.name }}</h1>
+        <span class="status-badge {{ 'sold' if product.is_sold else 'active' }}">
+            {{ 'Sold' if product.is_sold else 'Active' }}
+        </span>
+    </div>
+
+    <div class="product-info">
+        <div class="info-card">
+            <h1>{{ product.product_type }}</h1>
+            <p>{{ product.description }}</p>
+            <h3>Current Price</h3>
+            <p class="price">${{ "%.2f"|format(product.current_price) }}</p>
+        </div>
+        
+        <div class="info-card">
+            <h3>Time Remaining</h3>
+            <p class="time-remaining">{{ product.end_time|time_remaining }}</p>
+        </div>
+    </div>
+
+    {% if not product.is_sold %}
+    <form method="POST" action="{{ url_for('bids.place_bid', product_id=product.id) }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.amount.label }}
+            {{ form.amount(class="form-control") }}
+            <button type="button" onclick="suggestBid()">Suggest +10</button>
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+{% endif %}
+</div>
+
+<script>
+function suggestBid() {
+    const currentPrice = parseFloat(document.querySelector('.price').textContent.replace('$', ''));
+    document.getElementById('amount').value = (currentPrice + 10).toFixed(2);
+}
+</script>
+{% endblock %}
