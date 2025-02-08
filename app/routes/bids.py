@@ -52,5 +52,5 @@ def place_bid(product_id):
 @bids_bp.route('/suggest_bid/<int:product_id>')
 def suggest_bid(product_id):
     product = Product.query.get_or_404(product_id)
-    suggested = float(product.current_price) + 10.0
+    suggested = float(product.current_price) + 1.0
     return jsonify({'suggested': suggested})

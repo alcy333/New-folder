@@ -29,7 +29,7 @@
         <div class="form-group">
             {{ form.amount.label }}
             {{ form.amount(class="form-control") }}
-            <button type="button" onclick="suggestBid()">Suggest +10</button>
+            <button type="button" onclick="suggestBid()">Suggest +1</button>
         </div>
         {{ form.submit(class="btn btn-primary") }}
     </form>
@@ -39,7 +39,7 @@
 <script>
 function suggestBid() {
     const currentPrice = parseFloat(document.querySelector('.price').textContent.replace('$', ''));
-    document.getElementById('amount').value = (currentPrice + 10).toFixed(2);
+    document.getElementById('amount').value = (currentPrice + 1).toFixed(2);
 }
 </script>
 {% endblock %}
